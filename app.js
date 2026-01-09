@@ -5,6 +5,7 @@ createApp({
         return {
             loading: false,
             currentBuild: [],
+            visibleSpells: [],
             spells: [
                 // Offensive
                 { name: 'Bouncer', type: 'Offensive', icon: 'SpellSmalliconBouncer.webp' },
@@ -83,6 +84,8 @@ createApp({
         
         generateRandomBuild() {
             this.loading = true;
+            this.currentBuild = [];
+            this.visibleSpells = [];
             
             setTimeout(() => {
                 const build = [];
@@ -140,8 +143,18 @@ createApp({
                 }
                 
                 this.currentBuild = shuffledBuild;
+                this.visibleSpells = [];
                 
-                this.loading = false;
+                // Reveal spells one by one like drawing cards
+                shuffledBuild.forEach((spell, index) => {
+                    setTimeout(() => {
+                        this.visibleSpells.push(index);
+                        // Stop loading after the last card is drawn
+                        if (index === shuffledBuild.length - 1) {
+                            this.loading = false;
+                        }
+                    }, 300 + (index * 150)); // 150ms delay between each card
+                });
             }, 300);
         },
         

@@ -28,7 +28,10 @@
                             v-for="(spell, index) in currentBuild" 
                             :key="index"
                             class="spell-card"
-                            :class="spell.type.toLowerCase().replace(' ', '-')"
+                            :class="[
+                                spell.type.toLowerCase().replace(' ', '-'),
+                                { 'card-drawn': visibleSpells.includes(index) }
+                            ]"
                         >
                             <div class="spell-number">{{ index + 1 }}</div>
                             <img 
