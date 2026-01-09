@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spellsworn Random Build Generator</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <header>
+                <h1>⚔️ Spellsworn Random Build Generator</h1>
+                <p class="subtitle">Generate random spell builds for your next match</p>
+            </header>
+
+            <main>
+                <button @click="generateRandomBuild" class="generate-btn" :disabled="loading">
+                    {{ loading ? 'Generating...' : '🎲 Generate Random Build' }}
+                </button>
+
+                <div v-if="currentBuild.length > 0" class="build-container">
+                    <h2>Your Random Build ({{ currentBuild.length }} spells)</h2>
+                    <p class="build-info">Max 3 Offensive • Max 1 Defensive • Max 1 Area • Max 4 Utility • Max 1 Travel Skill (Total: 7 spells)</p>
+                    <div class="spells-grid">
+                        <div 
+                            v-for="(spell, index) in currentBuild" 
+                            :key="index"
+                            class="spell-card"
+                            :class="spell.type.toLowerCase().replace(' ', '-')"
+                        >
+                            <div class="spell-number">{{ index + 1 }}</div>
+                            <img 
+                                :src="getIconPath(spell.icon)" 
+                                :alt="spell.name"
+                                class="spell-icon"
+                                @error="$event.target.style.display='none'"
+                            />
+                            <div class="spell-name">{{ spell.name }}</div>
+                            <div class="spell-type">{{ spell.type }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="build-stats">
+                        <div class="stat">
+                            <span class="stat-label">Offensive:</span>
+                            <span class="stat-value">{{ buildStats.offensive }}</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Defensive:</span>
+                            <span class="stat-value">{{ buildStats.defensive }}</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Area:</span>
+                            <span class="stat-value">{{ buildStats.area }}</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Utility:</span>
+                            <span class="stat-value">{{ buildStats.utility }}</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Travel:</span>
+                            <span class="stat-value">{{ buildStats.travel }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-else class="welcome-message">
+                    <p>Click the button above to generate your first random build!</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
