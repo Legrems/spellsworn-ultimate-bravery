@@ -258,30 +258,27 @@ header h1 {
     }
     
     .spells-grid {
-        grid-template-columns: repeat(7, 1fr);
-        gap: 8px;
-    }
-    
-    .spell-card {
-        padding: 12px 8px;
-    }
-    
-    .spell-icon {
-        width: 48px;
-        height: 48px;
-    }
-    
-    .spell-name {
-        font-size: 0.9em;
-        margin: 6px 0 4px 0;
-    }
-    
-    .spell-type {
-        font-size: 0.75em;
+        grid-template-columns: 1fr;
+        gap: 12px;
     }
     
     .spell-card {
         padding: 15px;
+        max-width: 100%;
+    }
+    
+    .spell-icon {
+        width: 56px;
+        height: 56px;
+    }
+    
+    .spell-name {
+        font-size: 1.1em;
+        margin: 8px 0 6px 0;
+    }
+    
+    .spell-type {
+        font-size: 0.85em;
     }
     
     .build-stats {
